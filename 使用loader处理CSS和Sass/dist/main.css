@@ -1,0 +1,6 @@
+body {
+  background-color: pink; }
+  body div {
+    width: 100px;
+    height: 100px;
+    background-color: blue; }
