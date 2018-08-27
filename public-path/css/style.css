@@ -1,0 +1,11 @@
+.small {
+    width: 200px;
+    height: 200px;
+    background: url(../img/kb.jpg) no-repeat;
+}
+
+.big {
+    width: 500px;
+    height: 350px;
+    background: url(../img/kris.jpeg) no-repeat;
+}

@@ -7,13 +7,12 @@ const postcssConfig = require('./postcss.config')
 
 const config = {
     entry: {
-        first: './src/first.js',
-        second: './src/second.js',
-        vendor: ['jquery']
+        index: './src/index.js',
+        jquery: 'jquery'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name][chunkhash:8].js'
+        filename: '[name].js'
     },
     module:{
         rules: [
@@ -74,33 +73,33 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(['./dist']),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: '[name].js',
-            minChunks: function(module, count) {
-                console.log(`正在处理的文件是 ${module.resource}`, `引用次数 ${count}`)
-                console.log(module.resource.indexOf(path.join(__dirname, '../../../node_modules')) === 0)
-                return (
-                    module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(path.join(__dirname, '../../../node_modules')) === 0
-                )
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            filename: '[name].js',
-            chunks: ['vendor']
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            filename: '[name].js',
-            chunks: ['first', 'second']
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     filename: '[name].js',
+        //     minChunks: function(module, count) {
+        //         console.log(`正在处理的文件是 ${module.resource}`, `引用次数 ${count}`)
+        //         console.log(module.resource.indexOf(path.join(__dirname, '../../../node_modules')) === 0)
+        //         return (
+        //             module.resource &&
+        //             /\.js$/.test(module.resource) &&
+        //             module.resource.indexOf(path.join(__dirname, '../../../node_modules')) === 0
+        //         )
+        //     }
+        // }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'manifest',
+        //     filename: '[name].js',
+        //     chunks: ['vendor']
+        // }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'common',
+        //     filename: '[name].js',
+        //     chunks: ['first', 'second']
+        // }),
         new HtmlWebpackPlugin({
             title: '简单页面',
             filename: 'index.html',
-            chunks: ['manifest', 'vendor', 'common', 'first'],
+            chunks: ['index', 'jquery'],
             inject: true,
             chunksSortMode: 'manual'
         }),
@@ -110,7 +109,7 @@ const config = {
             'window.jquery': 'jquery',
             'window.$': 'jquery'
         }),
-        new ExtractTextPlugin('[name].[chunkhash:8].css'),
+        new ExtractTextPlugin('[name].css'),
     ]
 }
 

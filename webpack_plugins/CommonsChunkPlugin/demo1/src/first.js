@@ -1,5 +1,4 @@
 import {common} from './common';
-import style from './style.css';
 
 var man = {
     name: 'alex',
@@ -9,7 +8,3 @@ var man = {
 var sex = {
     sex: 'man'
 };
-
-$.extend(man, sex);
-
-console.log(style)
